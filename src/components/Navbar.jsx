@@ -26,7 +26,7 @@ export default class Navbar extends React.Component {
         return (
             <>
                 <nav className="navbar navbar-expand-lg navbar-light bg-light">
-                    <div className="container-fluid">
+                    <div className="ms-5 container-fluid">
                         <ul className="navbar-nav">
                         {this.links.map(link => (
                         <li className="nav-item">

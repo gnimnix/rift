@@ -1,5 +1,6 @@
 import React from "react"
 import Navbar from "../components/Navbar"
+import Footer from "../components/Footer"
 
 
 function IndexPageCarousel() {
@@ -59,11 +60,65 @@ function IndexPageCarousel() {
 }
 
 
+function IntroPanel() {
+    const panelStyle = {
+        height: "90vh",
+        position: "relative"
+    }
+    const cardStyle = {
+        height: "48%",
+        width: "27%",
+        position: "absolute",
+        left: 0,
+        right: 0,
+        top: 0,
+        bottom: 0,
+        margin: "auto",
+    }
+
+    function firstCard () {
+        return (
+            <>
+                <div className="border bg-light p-5" style={{...cardStyle, zIndex: 3}}>
+                    <h3>Hi there,</h3>
+                    <p>Welcome to my website which I use to blog about tech stuff, particularly about PC components.</p>
+                    <p>I am also interested in competitive programming and utilize this platform to share what I have learnt</p>
+                </div>
+            </>
+        )
+    }
+
+    function secondCard() {
+        return (
+            <>
+                <div className="border bg-light p-5" style={{...cardStyle, zIndex: 0, left: "-4.5%", top: "8%"}}>
+                    <p>This website was made using the Gatsby Framework together with ReactJS and React-Spring</p>
+                </div>
+            </>
+        )
+    }
+
+    const cards = [firstCard, secondCard]
+
+    return (
+        <>
+        <div style={panelStyle}>
+            {cards.map(card => (
+                card()
+            ))}
+        </div>
+        </>
+    )
+}
+
+
 export default function IndexPage() {
     return (
         <>
             <Navbar/>
             <IndexPageCarousel/>
+            <IntroPanel/>
+            <Footer/>
         </>
     )
 }

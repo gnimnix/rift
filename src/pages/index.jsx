@@ -1,6 +1,8 @@
-import React from "react"
+import React, {useState} from "react"
 import Navbar from "../components/Navbar"
 import Footer from "../components/Footer"
+
+import "../css/index.css"
 
 
 function IndexPageCarousel() {
@@ -61,50 +63,57 @@ function IndexPageCarousel() {
 
 
 function IntroPanel() {
-    const panelStyle = {
-        height: "90vh",
-        position: "relative"
-    }
-    const cardStyle = {
-        height: "48%",
-        width: "27%",
-        position: "absolute",
-        left: 0,
-        right: 0,
-        top: 0,
-        bottom: 0,
-        margin: "auto",
-    }
-
-    function firstCard () {
+    function Card(props) {
         return (
             <>
-                <div className="border bg-light p-5" style={{...cardStyle, zIndex: 3}}>
-                    <h3>Hi there,</h3>
-                    <p>Welcome to my website which I use to blog about tech stuff, particularly about PC components.</p>
-                    <p>I am also interested in competitive programming and utilize this platform to share what I have learnt</p>
+                <div className="card border bg-light p-3">
+                    <div className="card-body">
+                    {
+                        props.title && 
+                        <h3 className="card-title">{props.title}</h3>
+                    }
+                    <div className="card-text">
+                        {props.text}
+                    </div>
+                    </div>
+                </div>
+            </>
+        )
+    }
+    function firstCard (props) {
+        return (
+            <>
+                <div className="card border bg-light p-3" style={props.style}>
+                    <div className="card-body">
+                        <h3 className="card-title">Hi there,</h3>
+                        <p className="card-text">Welcome to my website which I use to blog about tech stuff, particularly about PC components.</p>
+                        <p>I am also interested in competitive programming and utilize this platform to share what I have learnt</p>
+                    </div>
                 </div>
             </>
         )
     }
 
-    function secondCard() {
+    function secondCard(props) {
         return (
             <>
-                <div className="border bg-light p-5" style={{...cardStyle, zIndex: 0, left: "-4.5%", top: "8%"}}>
-                    <p>This website was made using the Gatsby Framework together with ReactJS and React-Spring</p>
+                <div className="card border bg-light p-3" style={{...props.style, left: "-4.5%", top: "8%"}}>
+                    <div className="card-body">
+                        <p className="card-text">This website was made using the Gatsby Framework together with ReactJS and React-Spring</p>
+                    </div>
                 </div>
             </>
         )
     }
 
     const cards = [firstCard, secondCard]
+    const cardsZIndex = [useState(3), useState(0)]
 
     return (
         <>
-        <div style={panelStyle}>
-            {cards.map(card => (
-                card()
+        <div className="panel">
+            {cards.map((Card, i) => (
+                <Card key={i} style={{zIndex: cardsZIndex[i][0]}}/>
             ))}
         </div>
         </>

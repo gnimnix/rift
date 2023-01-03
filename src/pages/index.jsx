@@ -8,23 +8,23 @@ import "../css/index.scss"
 function IntroPanel() {
     const secondWrapperRef = useRef(null)
     const [secondWrapperVisible, setSecondWrapperVisible] = useState(false);
+    const observerRef = useRef(null)
 
     const callbackFunction = (entries) => {
         const [entry] = entries
         if (entry.isIntersecting) {
             setSecondWrapperVisible(entry.isIntersecting)
-            observer.unobserve(secondWrapperRef.current)
-            observer.disconnect()
+            observerRef.current.unobserve(secondWrapperRef.current)
+            observerRef.current.disconnect()
         }
     }
 
-    const observer = new IntersectionObserver(callbackFunction, {
-        threshold: 1,
-    })
 
     useEffect(() => {
-        if (secondWrapperRef.current) observer.observe(secondWrapperRef.current)
-    })
+        observerRef.current = new IntersectionObserver(callbackFunction, {threshold: 1})
+        if (secondWrapperRef.current) observerRef.current.observe(secondWrapperRef.current)
+
+    }, [])
 
     return (
         <div className={"index-main"}>

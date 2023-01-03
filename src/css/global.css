@@ -1,0 +1,14 @@
+body {
+    margin: 0;
+    padding: 0;
+    --default-bg-color: white;
+}
+
+body::-webkit-scrollbar {
+    display: none;
+}
+
+a:visited {
+    text-decoration: none;
+    color: var(--default-bg-color);
+}

@@ -1,113 +1,60 @@
-import React from "react"
+import React, {useEffect, useRef, useState} from "react"
 import Navbar from "../components/Navbar"
 import Footer from "../components/Footer"
 
-
-function IndexPageCarousel() {
-    const carouselStyle = {
-        height: "80vh"
-    }
-    return (
-        <>
-            <div id="indexPageCarousel" 
-            className="carousel slide d-flex align-items-center" 
-            data-bs-ride="carousel"
-            style={carouselStyle}>
-                <div className="carousel-inner">
-                    <div className="carousel-item active">
-                        <div className="d-flex h-100 align-items-center justify-content-center">
-                            <p 
-                            className="text-uppercase fs-1"
-                            style={{
-                                    fontFamily: "Open Sans",
-                                }
-                            }
-                            >Hello</p>
-                        </div>
-                    </div>
-                    <div className="carousel-item">
-                        <div className="d-flex h-100 align-items-center justify-content-center">
-                            <p 
-                            className="text-uppercase fs-1"
-                            style={{
-                                    fontFamily: "Roboto Mono",
-                                }}
-                            >Welcome</p>
-                        </div>
-                    </div>
-                    <div className="carousel-item">
-                        <div className="d-flex h-100 align-items-center justify-content-center">
-                            <p 
-                            className="text-uppercase fs-1"
-                            style={{
-                                    fontFamily: "Cedarville Cursive",
-                                }}
-                            >Good Day</p>
-                        </div>
-                    </div>
-                </div>
-                <button class="carousel-control-prev" type="button" data-bs-target="#indexPageCarousel" data-bs-slide="prev">
-                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                    <span class="visually-hidden">Previous</span>
-                </button>
-                <button class="carousel-control-next" type="button" data-bs-target="#indexPageCarousel" data-bs-slide="next">
-                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                    <span class="visually-hidden">Next</span>
-                </button>
-            </div>
-        </>
-    )
-}
+import "../css/index.scss"
 
 
 function IntroPanel() {
-    const panelStyle = {
-        height: "90vh",
-        position: "relative"
-    }
-    const cardStyle = {
-        height: "48%",
-        width: "27%",
-        position: "absolute",
-        left: 0,
-        right: 0,
-        top: 0,
-        bottom: 0,
-        margin: "auto",
+    const secondWrapperRef = useRef(null)
+    const [secondWrapperVisible, setSecondWrapperVisible] = useState(false);
+
+    const callbackFunction = (entries) => {
+        const [entry] = entries
+        if (entry.isIntersecting) {
+            setSecondWrapperVisible(entry.isIntersecting)
+            observer.unobserve(secondWrapperRef.current)
+            observer.disconnect()
+        }
     }
 
-    function firstCard () {
-        return (
-            <>
-                <div className="border bg-light p-5" style={{...cardStyle, zIndex: 3}}>
-                    <h3>Hi there,</h3>
-                    <p>Welcome to my website which I use to blog about tech stuff, particularly about PC components.</p>
-                    <p>I am also interested in competitive programming and utilize this platform to share what I have learnt</p>
-                </div>
-            </>
-        )
-    }
+    const observer = new IntersectionObserver(callbackFunction, {
+        threshold: 1,
+    })
 
-    function secondCard() {
-        return (
-            <>
-                <div className="border bg-light p-5" style={{...cardStyle, zIndex: 0, left: "-4.5%", top: "8%"}}>
-                    <p>This website was made using the Gatsby Framework together with ReactJS and React-Spring</p>
-                </div>
-            </>
-        )
-    }
-
-    const cards = [firstCard, secondCard]
+    useEffect(() => {
+        if (secondWrapperRef.current) observer.observe(secondWrapperRef.current)
+    })
 
     return (
-        <>
-        <div style={panelStyle}>
-            {cards.map(card => (
-                card()
-            ))}
+        <div className={"index-main"}>
+            <div className={"firstIntro"}>
+                <svg viewBox={"0 -20 52.234375 30.33333396911621"} xmlns={"http://www.w3.org/2000/svg"}>
+                    <text style={{fontFamily: "Cedarville Cursive"}} >HELLO</text>
+                </svg>
+                <p>
+                    Welcome to my site. I use this website as a portfolio to showcase my programming skills and
+                    hobbies. Occasionally, I will blog about PC components and peripherals.
+                </p>
+            </div>
+            <div className={"secondIntro"}>
+                <div className={"secondIntro-wrapper"} ref={secondWrapperRef}>
+                    <h1 id={secondWrapperVisible ? "secondIntro-yellow-bg-animation" : null}>
+                        Pardon the ugly design
+                    </h1>
+                    <p id={secondWrapperVisible ? "secondIntro-blue-bg-animation": null}>
+                        Forgot to put skill points into designing &gt;.&lt;
+                    </p>
+                </div>
+            </div>
+            <div className={"thirdIntro"}>
+                <p>
+                    This website was made using GatsbyJs with vanilla CSS and hosted on a home server. It is constantly being updated and
+                    new features will be integrated to this site. I plan to migrate this site to Amazon Web Services (AWS)
+                    in the future for better performance and security.
+                </p>
+            </div>
         </div>
-        </>
     )
 }
 
@@ -116,9 +63,20 @@ export default function IndexPage() {
     return (
         <>
             <Navbar/>
-            <IndexPageCarousel/>
             <IntroPanel/>
             <Footer/>
+        </>
+    )
+}
+
+
+export const Head = () => {
+    return (
+        <>
+            <title>Welcome</title>
+            <meta name="viewport" content="width=device-width, initial-scale=1.0"></meta>
+            <script src="https://kit.fontawesome.com/046210d477.js" crossOrigin="anonymous"></script>
+            <link rel={"icon"} href="../images/icon.png"/>
         </>
     )
 }

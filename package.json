@@ -16,13 +16,15 @@
   },
   "dependencies": {
     "@popperjs/core": "^2.11.6",
-    "@react-spring/web": "^9.5.5",
-    "bootstrap": "^5.2.2",
-    "gatsby": "^4.24.1",
+    "@react-spring/web": "^9.6.1",
+    "bootstrap": "^5.2.3",
+    "gatsby": "^5.3.3",
     "gatsby-omni-font-loader": "^2.0.2",
-    "jquery": "^3.6.1",
-    "react": "^18.1.0",
-    "react-dom": "^18.1.0",
-    "react-helmet": "^6.1.0"
+    "gatsby-plugin-sass": "^6.3.1",
+    "jquery": "^3.6.3",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-helmet": "^6.1.0",
+    "sass": "^1.57.1"
   }
 }

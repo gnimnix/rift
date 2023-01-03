@@ -1,0 +1,110 @@
+.index-main {
+    display: flex;
+    flex-flow: column wrap;
+}
+
+.firstIntro {
+    min-height: 80vh;
+
+    display: flex;
+    flex-flow: column wrap;
+    align-items: center;
+    justify-content: center;
+
+    svg {
+        margin-top: 5vh;
+    }
+
+    p {
+        font-family: "Open Sans", "sans-serif";
+        padding: 0 1em;
+        text-align: center;
+    }
+}
+
+.secondIntro {
+    min-height: 30vh;
+    display: flex;
+    background-color: #212529;
+    color: #212529;
+
+    .secondIntro-wrapper {
+        width: 100%;
+
+        h1 {
+            font-family: "Roboto Mono", "sans-serif";
+            font-weight: bold;
+            width: fit-content;
+            padding: 0.5vmin 0.8vmin;
+        }
+
+        p {
+            font-family: "Roboto Mono", "sans-serif";
+            font-size: 1.1rem;
+
+            width: fit-content;
+            margin-left: auto;
+            padding: 0.5em 0.8em;
+            text-align: end;
+        }
+    }
+}
+
+#secondIntro-yellow-bg-animation {
+    background: linear-gradient(to right, yellow 50%, transparent 0) right;
+    background-size: 200% 100%;
+    animation: fadeInRight 1s forwards ease-out;
+}
+
+#secondIntro-blue-bg-animation {
+    background: linear-gradient(to left, #6ee3fa 50%, transparent 0) left;
+    background-size: 200% 100%;
+    animation: fadeInLeft 1s forwards ease-out;
+}
+
+.thirdIntro {
+    min-height: 20vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    p {
+        text-align: center;
+        font-family: "Open Sans", "sans-serif";
+    }
+}
+
+@keyframes fadeInRight {
+    100% {
+        background-position: left;
+    }
+}
+
+@keyframes fadeInLeft {
+    100% {
+        background-position: right;
+    }
+}
+
+@media (min-width: 992px) {
+    .firstIntro {
+        padding-top: 10vh;
+        flex-flow: row wrap;
+        svg {
+            width: 25vw;
+        }
+        p {
+            width: 25vw;
+            text-align: start;
+            padding: 0;
+        }
+    }
+
+    .secondIntro {
+        padding: 0 34vw;
+    }
+
+    .thirdIntro p {
+        width: 20vw;
+    }
+}

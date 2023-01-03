@@ -1,15 +1,12 @@
 import React from "react"
 
+import "../css/footer.scss"
+
 
 export default function Footer() {
-    const footerStyle = {
-        height: "20vh"
-    }
     return (
-        <>
-        <div style={footerStyle} className="bg-dark bg-gradient">
+        <div className={"footer"}>
 
         </div>
-        </>
     )
 }

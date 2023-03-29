@@ -1,0 +1,11 @@
+#spin-this {
+  animation: spin 0.20s infinite linear;
+}
+
+@keyframes spin {
+  from {
+    transform: rotateX(0deg);
+  } to {
+    transform: rotateX(359deg);
+  }
+}

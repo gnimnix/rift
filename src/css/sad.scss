@@ -1,3 +1,14 @@
+#sad-container {
+  width: 100vw;
+  display: flex;
+  justify-content: center;
+}
+
+.sad-inner-container {
+  display: flex;
+  flex-direction: column;
+}
+
 #spin-this {
   animation: spin 0.20s infinite linear;
 }

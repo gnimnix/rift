@@ -1,0 +1,35 @@
+#rain-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  display: flex;
+  width: 100vw;
+  :last-child {
+    margin-left: auto;
+  }
+}
+
+.pane-container, .pane-inner-container {
+  display: inline-flex;
+}
+
+.rain-column {
+  position: relative;
+  width: 5vw;
+}
+
+.guardian-voucher, .watsons-voucher {
+  position: absolute;
+  left: 30px;
+  top: -100px;
+  animation: rain 5s infinite linear;
+  width: 3vw;
+}
+
+@keyframes rain {
+  from {
+
+  } to {
+  transform: translateY(110vh);
+      }
+}

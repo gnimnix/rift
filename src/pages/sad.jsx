@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import VoucherRain from "../components/VoucherRain";
 
 import "../css/sad.scss"
 
@@ -54,17 +55,20 @@ export default function SadPage() {
     }
 
     return (
-        <div id="sadcontainer" onClick={handleClick}>
-            {
-                !change ? <>
-                    <SadFace clicked={clicked}/>
-                    <h1>TAP ON ME TO FLIP THIS FROWN</h1>
-                    </> : <>
-                    <HappyFace/>
-                    <h1 style={{color: "#FFCBF4"}}>REMEMBER TO SMILE JOANNE!!! :)))</h1>
-                </>
-            }
-        </div>
+        <>
+            <div id="sad-container" onClick={handleClick}>
+                {
+                    !change ? <div className="sad-inner-container" >
+                            <SadFace clicked={clicked}/>
+                            <h1>TAP ON ME TO FLIP THIS FROWN</h1>
+                        </div> : <div className="sad-inner-container" >
+                            <HappyFace/>
+                            <h1 style={{color: "#FFCBF4"}}>REMEMBER TO SMILE JOANNE!!! :)))</h1>
+                    </div>
+                }
+            </div>
+            <VoucherRain/>
+        </>
     )
 }
 

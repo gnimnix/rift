@@ -24,6 +24,8 @@ import SpiralBackdrop from "../components/SpiralBackdrop"
 import favicon from "../images/icon.png"
 import {
     RESUME_URL,
+    SITE_URL,
+    seo,
     coursework,
     education,
     experience,
@@ -312,18 +314,82 @@ export default function IndexPage() {
     )
 }
 
+// schema.org data so search engines can connect this page to the person it describes.
+const structuredData = {
+    "@context": "https://schema.org",
+    "@graph": [
+        {
+            "@type": "WebSite",
+            "@id": `${SITE_URL}/#website`,
+            url: `${SITE_URL}/`,
+            name: profile.name,
+            inLanguage: "en",
+        },
+        {
+            "@type": "ProfilePage",
+            "@id": `${SITE_URL}/#profile`,
+            url: `${SITE_URL}/`,
+            name: seo.title,
+            description: seo.description,
+            isPartOf: { "@id": `${SITE_URL}/#website` },
+            mainEntity: { "@id": `${SITE_URL}/#person` },
+        },
+        {
+            "@type": "Person",
+            "@id": `${SITE_URL}/#person`,
+            name: profile.name,
+            alternateName: [profile.chineseName, "Lu Xinming"],
+            url: `${SITE_URL}/`,
+            image: `${SITE_URL}${seo.image}`,
+            email: `mailto:${profile.email}`,
+            jobTitle: profile.role,
+            description: seo.description,
+            address: { "@type": "PostalAddress", addressCountry: "SG", addressLocality: "Singapore" },
+            alumniOf: {
+                "@type": "CollegeOrUniversity",
+                name: education.school,
+                url: "https://nus.edu.sg/",
+            },
+            knowsLanguage: ["en", "zh", "es"],
+            knowsAbout: skills.flatMap((s) => s.items),
+            sameAs: [profile.github, profile.linkedin],
+        },
+    ],
+}
+
 export const Head = () => {
-    const description =
-        "Xinming Lu — software and firmware engineer, NUS Mathematics undergraduate graduating May 2027. " +
-        "Experience across React, Ruby on Rails, Python, C++ firmware and IoT."
+    const url = `${SITE_URL}/`
+    const image = `${SITE_URL}${seo.image}`
     return (
         <>
-            <title>Xinming Lu · Software & Firmware Engineer</title>
-            <meta name="description" content={description} />
-            <meta property="og:title" content="Xinming Lu · Software & Firmware Engineer" />
-            <meta property="og:description" content={description} />
-            <meta property="og:type" content="website" />
+            <html lang="en" />
+            <title>{seo.title}</title>
+            <meta name="description" content={seo.description} />
+            <meta name="author" content={profile.name} />
+            <meta name="robots" content="index, follow, max-image-preview:large" />
+            <meta name="theme-color" content="#0f172a" />
+            <link rel="canonical" href={url} />
             <link rel="icon" href={favicon} />
+
+            <meta property="og:type" content="profile" />
+            <meta property="og:site_name" content={profile.name} />
+            <meta property="og:url" content={url} />
+            <meta property="og:title" content={seo.title} />
+            <meta property="og:description" content={seo.description} />
+            <meta property="og:image" content={image} />
+            <meta property="og:image:width" content="1200" />
+            <meta property="og:image:height" content="630" />
+            <meta property="og:image:alt" content={`${profile.name}, ${profile.role}`} />
+            <meta property="og:locale" content="en_SG" />
+            <meta property="profile:first_name" content="Xinming" />
+            <meta property="profile:last_name" content="Lu" />
+
+            <meta name="twitter:card" content="summary_large_image" />
+            <meta name="twitter:title" content={seo.title} />
+            <meta name="twitter:description" content={seo.description} />
+            <meta name="twitter:image" content={image} />
+
+            <script type="application/ld+json">{JSON.stringify(structuredData)}</script>
         </>
     )
 }

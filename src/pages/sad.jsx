@@ -75,5 +75,6 @@ export default function SadPage() {
 export const Head = () => (
     <>
         <title>this pretty sadge</title>
+        <meta name="robots" content="noindex" />
     </>
 )

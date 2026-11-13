@@ -2,6 +2,18 @@
 
 export const RESUME_URL = "/Lu_Xinming_Resume.pdf"
 
+// Public address of the site, used for canonical and social-share URLs.
+// Keep in sync with siteMetadata.siteUrl in gatsby-config.js and static/robots.txt.
+export const SITE_URL = "https://blog.xmlu.net"
+
+export const seo = {
+    title: "Xinming Lu | Software & Firmware Engineer in Singapore",
+    description:
+        "Xinming Lu is a software and firmware engineer and NUS Mathematics undergraduate (class of 2027) " +
+        "with experience in React, Rails, Python, C++ and IoT.",
+    image: "/og-image.png",
+}
+
 export const profile = {
     name: "Xinming Lu",
     chineseName: "吕心铭",

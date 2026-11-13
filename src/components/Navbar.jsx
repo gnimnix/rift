@@ -1,24 +1,77 @@
-import React from "react"
-import { Link } from "gatsby"
+import React, { useEffect, useState } from "react"
+import { LuDownload, LuMenu, LuX } from "react-icons/lu"
+import { RESUME_URL, profile } from "../data/profile"
 
-import '../css/navbar.scss'
+const links = [
+    { href: "#about", label: "About" },
+    { href: "#experience", label: "Experience" },
+    { href: "#projects", label: "Projects" },
+    { href: "#education", label: "Education" },
+    { href: "#skills", label: "Skills" },
+]
 
+export default function Navbar() {
+    const [open, setOpen] = useState(false)
+    const [scrolled, setScrolled] = useState(false)
 
-export default class Navbar extends React.Component {
-    render() {
-        return (
-            <nav className={"navbar"}>
-                <ul className={"navbar-list"}>
-                    <li className={"navbar-item"}>
-                        <Link to={'/'} className={"navbar-link"}>
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512" aria-hidden={true} role={"img"} focusable={false}>
-                                    <path fill={"currentColor"} d="M575.8 255.5c0 18-15 32.1-32 32.1h-32l.7 160.2c0 2.7-.2 5.4-.5 8.1V472c0 22.1-17.9 40-40 40H456c-1.1 0-2.2 0-3.3-.1c-1.4 .1-2.8 .1-4.2 .1H416 392c-22.1 0-40-17.9-40-40V448 384c0-17.7-14.3-32-32-32H256c-17.7 0-32 14.3-32 32v64 24c0 22.1-17.9 40-40 40H160 128.1c-1.5 0-3-.1-4.5-.2c-1.2 .1-2.4 .2-3.6 .2H104c-22.1 0-40-17.9-40-40V360c0-.9 0-1.9 .1-2.8V287.6H32c-18 0-32-14-32-32.1c0-9 3-17 10-24L266.4 8c7-7 15-8 22-8s15 2 21 7L564.8 231.5c8 7 12 15 11 24z"/>
-                            </svg>
-                            <span className={"link-text"}>Home</span>
-                        </Link>
-                    </li>
+    useEffect(() => {
+        const onScroll = () => setScrolled(window.scrollY > 8)
+        onScroll()
+        window.addEventListener("scroll", onScroll, { passive: true })
+        return () => window.removeEventListener("scroll", onScroll)
+    }, [])
+
+    return (
+        <header
+            className={`sticky top-0 z-50 bg-white/80 backdrop-blur transition-shadow ${
+                scrolled ? "shadow-[0_1px_0_rgba(15,23,42,0.08)]" : ""
+            }`}
+        >
+            <nav className="mx-auto flex h-16 max-w-5xl items-center justify-between px-5 sm:px-8" aria-label="Main">
+                <a href="#top" className="flex items-center gap-2 font-semibold text-ink">
+                    <span className="grid h-8 w-8 place-items-center rounded-lg bg-ink font-mono text-sm text-white">
+                        XL
+                    </span>
+                    <span>{profile.name}</span>
+                </a>
+
+                <ul className="hidden items-center gap-7 text-sm font-medium text-slate-600 md:flex">
+                    {links.map((l) => (
+                        <li key={l.href}>
+                            <a href={l.href} className="transition hover:text-ink">
+                                {l.label}
+                            </a>
+                        </li>
+                    ))}
                 </ul>
+
+                <div className="flex items-center gap-2">
+                    <a href={RESUME_URL} target="_blank" rel="noreferrer" className="btn-primary !px-4 !py-2">
+                        <LuDownload aria-hidden /> Résumé
+                    </a>
+                    <button
+                        type="button"
+                        className="grid h-10 w-10 place-items-center rounded-full text-xl text-ink md:hidden"
+                        aria-label={open ? "Close menu" : "Open menu"}
+                        aria-expanded={open}
+                        onClick={() => setOpen(!open)}
+                    >
+                        {open ? <LuX /> : <LuMenu />}
+                    </button>
+                </div>
             </nav>
-        )
-    }
+
+            {open && (
+                <ul className="border-t border-slate-100 px-5 py-3 text-sm font-medium text-slate-700 md:hidden">
+                    {links.map((l) => (
+                        <li key={l.href}>
+                            <a href={l.href} className="block py-2.5" onClick={() => setOpen(false)}>
+                                {l.label}
+                            </a>
+                        </li>
+                    ))}
+                </ul>
+            )}
+        </header>
+    )
 }

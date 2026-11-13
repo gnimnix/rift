@@ -1,14 +1,56 @@
-body {
-    margin: 0;
-    padding: 0;
-    --default-bg-color: white;
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+    html {
+        scroll-behavior: smooth;
+        scroll-padding-top: 5rem;
+    }
+
+    body {
+        @apply bg-white font-sans text-slate-600 antialiased;
+    }
+
+    ::selection {
+        @apply bg-accent-200 text-ink;
+    }
+
+    :focus-visible {
+        @apply outline outline-2 outline-offset-2 outline-accent-600;
+    }
 }
 
-body::-webkit-scrollbar {
-    display: none;
+@layer components {
+    .btn {
+        @apply inline-flex items-center justify-center gap-2 rounded-full px-5 py-2.5 text-sm font-semibold transition;
+    }
+
+    .btn-primary {
+        @apply btn bg-ink text-white shadow-sm hover:bg-accent-700;
+    }
+
+    .btn-ghost {
+        @apply btn border border-slate-200 bg-white text-slate-700 hover:border-slate-300 hover:text-ink;
+    }
+
+    .chip {
+        @apply inline-flex items-center rounded-full border border-slate-200 bg-slate-50 px-2.5 py-1 font-mono text-xs text-slate-600;
+    }
+
+    .card {
+        @apply rounded-2xl border border-slate-200 bg-white p-6 shadow-card;
+    }
+
+    .eyebrow {
+        @apply font-mono text-xs font-medium uppercase tracking-widest text-accent-700;
+    }
 }
 
-a:visited {
-    text-decoration: none;
-    color: var(--default-bg-color);
+/* Dotted backdrop behind the hero */
+.dot-grid {
+    background-image: radial-gradient(circle at 1px 1px, rgb(148 163 184 / 0.35) 1px, transparent 0);
+    background-size: 24px 24px;
+    mask-image: radial-gradient(ellipse 80% 70% at 50% 30%, black 30%, transparent 75%);
+    -webkit-mask-image: radial-gradient(ellipse 80% 70% at 50% 30%, black 30%, transparent 75%);
 }
